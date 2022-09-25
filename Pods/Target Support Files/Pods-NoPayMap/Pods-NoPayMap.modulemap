@@ -1,0 +1,6 @@
+framework module Pods_NoPayMap {
+  umbrella header "Pods-NoPayMap-umbrella.h"
+
+  export *
+  module * { export * }
+}
