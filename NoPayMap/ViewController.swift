@@ -19,17 +19,17 @@ class ViewController: UIViewController, MTMapViewDelegate {
         self.view.addSubview(mapView)
         mapView.delegate = self
         mapView.baseMapType = .standard
-        // Do any additional setup after loading the view.
 
         mapView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
-               }
-
+            }
+    
+        TableViewController.init().viewDidLoad()
     }
-    f
+    
 
 }
 
