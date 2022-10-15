@@ -8,8 +8,9 @@
 import Foundation
 
 struct NonPayData {
-    
     var hospName = ""
+    var hospLong = 0
+    var hospLat = 0
     var avgPrice = 0
     
 }

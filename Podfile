@@ -7,6 +7,7 @@ target 'NoPayMap' do
 
   pod 'Then'
   pod 'SnapKit', '~> 5.0.0'
+  pod 'Alamofire'
   # Pods for NoPayMap
 
 end

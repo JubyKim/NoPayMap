@@ -293,12 +293,13 @@
 		305645C828E082FA00780A60 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3056438F28E06BC800780A60 /* libc++.tbd */; };
 		305645C928E0830400780A60 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3056439028E06BD000780A60 /* libxml2.tbd */; };
 		305645CA28E0830F00780A60 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 305645C728E0826E00780A60 /* libsqlite3.tbd */; };
-		30DB156128E1BA9A0055D7F0 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DB156028E1BA9A0055D7F0 /* TableViewController.swift */; };
 		30ECE80A28E1CBFD0003833E /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ECE80928E1CBFD0003833E /* Structs.swift */; };
+		A1E1C5EF0C14F3C145E5ECEB /* Pods_NoPayMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AAF1BF8C6954AF095B09D92 /* Pods_NoPayMap.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0DC53A66E5D4EF9F73A89E52 /* Pods-NoPayMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoPayMap.release.xcconfig"; path = "Target Support Files/Pods-NoPayMap/Pods-NoPayMap.release.xcconfig"; sourceTree = "<group>"; };
+		1AAF1BF8C6954AF095B09D92 /* Pods_NoPayMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoPayMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3056436F28E06AFE00780A60 /* NoPayMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoPayMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3056437228E06AFE00780A60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3056437428E06AFE00780A60 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -597,7 +598,6 @@
 		305645C528E06CBC00780A60 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		305645C628E0825300780A60 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		305645C728E0826E00780A60 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		30DB156028E1BA9A0055D7F0 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		30ECE80928E1CBFD0003833E /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		BF24DD16B2961934104E1D8C /* Pods-NoPayMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoPayMap.debug.xcconfig"; path = "Target Support Files/Pods-NoPayMap/Pods-NoPayMap.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -615,6 +615,7 @@
 				3056438C28E06BB700780A60 /* CoreLocation.framework in Frameworks */,
 				3056438A28E06BAE00780A60 /* SystemConfiguration.framework in Frameworks */,
 				3056438828E06BA200780A60 /* OpenGLES.framework in Frameworks */,
+				A1E1C5EF0C14F3C145E5ECEB /* Pods_NoPayMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,7 +651,6 @@
 				3056437B28E06B0200780A60 /* Assets.xcassets */,
 				3056437D28E06B0200780A60 /* LaunchScreen.storyboard */,
 				3056438028E06B0200780A60 /* Info.plist */,
-				30DB156028E1BA9A0055D7F0 /* TableViewController.swift */,
 				30ECE80928E1CBFD0003833E /* Structs.swift */,
 			);
 			path = NoPayMap;
@@ -668,6 +668,7 @@
 				3056438B28E06BB700780A60 /* CoreLocation.framework */,
 				3056438928E06BAE00780A60 /* SystemConfiguration.framework */,
 				3056438728E06BA200780A60 /* OpenGLES.framework */,
+				1AAF1BF8C6954AF095B09D92 /* Pods_NoPayMap.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1421,7 +1422,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30ECE80A28E1CBFD0003833E /* Structs.swift in Sources */,
-				30DB156128E1BA9A0055D7F0 /* TableViewController.swift in Sources */,
 				3056437728E06AFE00780A60 /* ViewController.swift in Sources */,
 				3056437328E06AFE00780A60 /* AppDelegate.swift in Sources */,
 				3056437528E06AFE00780A60 /* SceneDelegate.swift in Sources */,
