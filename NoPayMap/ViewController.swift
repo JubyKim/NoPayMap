@@ -29,7 +29,7 @@ class ViewController: UIViewController, MTMapViewDelegate {
     var elements:[[String:String]] = []
     
     static var hospInfoList : [HospInfo] = []
-    static var hospCoorList : [HospCoor] = []
+//    static var hospCoorList : [HospCoor] = []
     func requestNonPayInfo() {
         // OPEN API 주소
         let url = "https://apis.data.go.kr/B551182/nonPaymentDamtInfoService/getNonPaymentItemHospList2?serviceKey=\(OPEN_KEY)" + "&itemCd=\(itemCd)"
@@ -43,10 +43,9 @@ class ViewController: UIViewController, MTMapViewDelegate {
                 "Authorization": "KakaoAK e9bcbfb89713389a16c296fde3a156fc"
             ]
     
-    static var dicValue = NSDictionary();
-    func findAddress(ind: Int) { //-> [Double]
-        print("indindindindind")
-        print(ind)
+    
+    func findAddress(ind: Int) {
+        var dicValue = NSDictionary();
 //        print("ViewController.hospInfoList)")
 //        print(ViewController.hospInfoList)
         let parameters: [String: Any] = [
@@ -54,7 +53,6 @@ class ViewController: UIViewController, MTMapViewDelegate {
             "page": 1,
             "size": 15
             ]
-            
         
         AF.request("https://dapi.kakao.com/v2/local/search/keyword.json", method: .get,
              parameters: parameters, headers: headers)
@@ -63,19 +61,24 @@ class ViewController: UIViewController, MTMapViewDelegate {
                      
                  case .success(let value):
                      print("success")
-                     ViewController.dicValue = value as! NSDictionary
-//                     print("dicValue")
-//                     print(ViewController.dicValue)
-                     ViewController.dicValue = (ViewController.dicValue["documents"] as! Array<Any>)[0] as! NSDictionary
+                     dicValue = value as! NSDictionary
+                     dicValue = (dicValue["documents"] as! Array<Any>)[0] as! NSDictionary
                      print("dicValue")
-//                     hospCoorList.append(HospCoor(hospLong: <#T##Double#>, hospLat: <#T##Double#>))
-                     print([ViewController.dicValue["x"], ViewController.dicValue["y"]])
+//                     print(dicValue["x"])
+                     var adLat = dicValue["x"]
+                     var adLong = dicValue["y"]
+                     
+                     ViewController.hospInfoList[ind].hospLong = adLong as! Double
+
+                     ViewController.hospInfoList[ind].hospLat = adLat as! Double
+                     
                      
                 case .failure(let error):
                      print("error 났어요")
                      print(error)
                      
                    }
+                 
                     
                  
                })
@@ -94,7 +97,10 @@ class ViewController: UIViewController, MTMapViewDelegate {
         requestNonPayInfo()
         print("----this is result----")
         print(ViewController.hospInfoList)
-        
+        print("---------------------")
+        ViewController.hospInfoList[3].hospName = "test입니다"
+        print("----this is testresult----")
+        print(ViewController.hospInfoList)
         print("---------------------")
         self.view.addSubview(mapView)
         mapView.delegate = self
@@ -105,7 +111,6 @@ class ViewController: UIViewController, MTMapViewDelegate {
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
             }
-        print("for문 시작")
 
     }
     
@@ -138,11 +143,7 @@ extension ViewController : XMLParserDelegate {
     
     static var idx = 0;
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        
-        
         if elementName == "item" {
-            
-            
             ViewController.hospInfoList.append(HospInfo(id : ViewController.idx,
                                                      hospName: hospName,
                                                      avgPrice: avgPrc/2))
@@ -151,13 +152,7 @@ extension ViewController : XMLParserDelegate {
             print("parser시작")
             print(ViewController.hospInfoList)
             
-//            ViewController.hospCoorList.append(HospCoor(hospLong: findAddress(ind: idx)[1], hospLat: findAddress(ind: idx)[0]))
-            
-            
         }
-        
-    
-    
 
     }
     

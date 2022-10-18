@@ -11,10 +11,6 @@ struct HospInfo {
     var id = 0
     var hospName = ""
     var avgPrice = 0
-}
-
-
-struct HospCoor {
     var hospLong = 0.0
     var hospLat = 0.0
 }
