@@ -14,3 +14,10 @@ struct HospInfo {
     var hospLong = 0.0
     var hospLat = 0.0
 }
+
+struct HospAdd {
+    var id = 0
+    var hospLong = 0.0
+    var hospLat = 0.0
+}
+

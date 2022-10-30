@@ -14,12 +14,14 @@ import Foundation
 
 class ViewController: UIViewController, MTMapViewDelegate {
     let mapView = MTMapView()
-    
+    let infoView = UIView()
     var mapItems = [MTMapPOIItem]()
     var avgPrc = 0
     var hospName = ""
     
     let itemCd: String = "ABZ010001"
+    let sidoCd: Int = 110000
+    let sgguCd: Int = 110001
     
     let OPEN_KEY: String = "M0j%2FyDxQTLEvDEjW3vg0lD4ypKN%2Bo%2Fm7leqrri%2FoXMEBHav1qfUDiEq5DQn0nRBzy3oV48c24mge%2FPPCJtVTTw%3D%3D"
     var xmlParser = XMLParser()
@@ -28,11 +30,24 @@ class ViewController: UIViewController, MTMapViewDelegate {
     var item:[String:String] = [:]  // item[key] => value
     var elements:[[String:String]] = []
     
+    var hospAddList = [HospAdd(id: 0, hospLong: 37.48992442128445, hospLat: 127.03372331742996)
+                   ,HospAdd(id: 1, hospLong: 37.5203098449488, hospLat: 127.033999426916)
+                   ,HospAdd(id: 2, hospLong: 35.863751470721745, hospLat: 128.60191984251864)
+                   ,HospAdd(id: 3, hospLong: 37.50478230187595, hospLat: 127.0484506824516)
+                   ,HospAdd(id: 4, hospLong: 37.485342474851066, hospLat: 127.03776229088159)
+                   ,HospAdd(id: 5, hospLong: 37.484911725043794, hospLat: 127.03505864524779)
+                   ,HospAdd(id: 6, hospLong: 37.5155054931273, hospLat: 127.034694023369)
+                   ,HospAdd(id: 7, hospLong: 37.4927889503163, hospLat: 127.046348715929)
+                   ,HospAdd(id: 8, hospLong: 37.488172159313585, hospLat: 127.08523237526762)
+                    ,HospAdd(id: 9, hospLong: 37.50681892340246, hospLat: 127.03464815597005)
+    ]
+    
     static var hospInfoList : [HospInfo] = []
-//    static var hospCoorList : [HospCoor] = []
+    
     func requestNonPayInfo() {
         // OPEN API 주소
-        let url = "https://apis.data.go.kr/B551182/nonPaymentDamtInfoService/getNonPaymentItemHospList2?serviceKey=\(OPEN_KEY)" + "&itemCd=\(itemCd)"
+
+        let url = "https://apis.data.go.kr/B551182/nonPaymentDamtInfoService/getNonPaymentItemHospList2?serviceKey=\(OPEN_KEY)" + "&itemCd=\(itemCd)" + "&sidoCd=\(sidoCd)" + "&sgguCd=\(sgguCd)"
         guard let xmlParser = XMLParser(contentsOf: URL(string: url)!) else { return }
         
         xmlParser.delegate = self;
@@ -68,10 +83,7 @@ class ViewController: UIViewController, MTMapViewDelegate {
                      var adLat = dicValue["x"]
                      var adLong = dicValue["y"]
                      
-                     ViewController.hospInfoList[ind].hospLong = adLong as! Double
-
-                     ViewController.hospInfoList[ind].hospLat = adLat as! Double
-                     
+                     print([adLong,adLat])
                      
                 case .failure(let error):
                      print("error 났어요")
@@ -82,24 +94,24 @@ class ViewController: UIViewController, MTMapViewDelegate {
                     
                  
                })
-        
-//        print("dicValue[x]")
-//        print(dicValue["x"] as! Double)
-//        print("dicValue[y]")
-//        print(dicValue["y"] as! Double)
-//        return
   
         }
+    
+    func poiItem(id: Int, latitude: Double, longitude: Double) -> MTMapPOIItem {
+        let item = MTMapPOIItem()
+        item.tag = id
+        item.mapPoint = MTMapPoint(geoCoord: .init(latitude: latitude, longitude: longitude))
+        item.showAnimationType = .noAnimation
+        return item
+    }
+    
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         requestNonPayInfo()
         print("----this is result----")
-        print(ViewController.hospInfoList)
-        print("---------------------")
-        ViewController.hospInfoList[3].hospName = "test입니다"
-        print("----this is testresult----")
         print(ViewController.hospInfoList)
         print("---------------------")
         self.view.addSubview(mapView)
@@ -111,11 +123,11 @@ class ViewController: UIViewController, MTMapViewDelegate {
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
             }
-
+        for i in 0...8 {
+            mapView.add(poiItem(id: i, latitude: hospAddList[i].hospLong, longitude: hospAddList[i].hospLat ) )
+        }
+        mapView.fitAreaToShowAllPOIItems()
     }
-    
-    
-    
 }
 
 extension ViewController : XMLParserDelegate {
@@ -156,17 +168,4 @@ extension ViewController : XMLParserDelegate {
 
     }
     
-}
-
-extension ViewController {
-    func poiItem(id: Int, latitude: Double, longitude: Double, imageName: String) -> MTMapPOIItem {
-        let item = MTMapPOIItem()
-        item.tag = id
-        item.mapPoint = MTMapPoint(geoCoord: .init(latitude: latitude, longitude: longitude))
-        item.showAnimationType = .noAnimation
-        return item
-    }
-    
-//    mapView.addPOIItem()
-   
 }
