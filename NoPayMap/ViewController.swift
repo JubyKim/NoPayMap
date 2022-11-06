@@ -13,9 +13,29 @@ import Alamofire
 import Foundation
 
 class ViewController: UIViewController, MTMapViewDelegate {
-    let mapView = MTMapView()
-    let infoView = UIView()
+    var mapView = MTMapView().then{
+        $0.setMapCenter(MTMapPoint(geoCoord: MTMapPointGeo(latitude: 37.5045, longitude: 127.0490)), zoomLevel: 5, animated: false)
+    }
+    
     var mapItems = [MTMapPOIItem]()
+
+    let infoView = UIView().then{
+        $0.backgroundColor = .white
+    }
+    let hospNameTitle = UILabel().then{
+        $0.text = "병원명 : "
+        $0.textColor = .black
+        $0.font = UIFont(name: "", size: 10)
+    }
+    let hospPriceTitle = UILabel().then{
+        $0.text = "가격 : "
+        $0.textColor = .black
+        $0.font = UIFont(name: "", size: 10)
+    }
+    
+    let hospNameLabel = UILabel()
+    let hospPriceLabel = UILabel()
+    
     var avgPrc = 0
     var hospName = ""
     
@@ -105,16 +125,26 @@ class ViewController: UIViewController, MTMapViewDelegate {
         return item
     }
     
+    private func fetchMapDetail(id : Int) {
+        print("hell0")
+        hospNameLabel.text = ViewController.hospInfoList[id].hospName
+        hospPriceLabel.text = String(ViewController.hospInfoList[id].avgPrice)
+    }
     
+    func mapView(_ mapView: MTMapView!, selectedPOIItem poiItem: MTMapPOIItem!) -> Bool {
+        fetchMapDetail(id: poiItem.tag)
+        return false
+    }
+        
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         requestNonPayInfo()
         print("----this is result----")
         print(ViewController.hospInfoList)
         print("---------------------")
         self.view.addSubview(mapView)
+        self.view.addSubview(infoView)
         mapView.delegate = self
         mapView.baseMapType = .standard
         mapView.snp.makeConstraints {
@@ -125,8 +155,43 @@ class ViewController: UIViewController, MTMapViewDelegate {
             }
         for i in 0...8 {
             mapView.add(poiItem(id: i, latitude: hospAddList[i].hospLong, longitude: hospAddList[i].hospLat ) )
+            
         }
-        mapView.fitAreaToShowAllPOIItems()
+        makeDetailInfoView()
+        
+    }
+    
+    func makeDetailInfoView() {
+        infoView.addSubview(hospNameTitle)
+        infoView.addSubview(hospPriceTitle)
+        infoView.addSubview(hospNameLabel)
+        infoView.addSubview(hospPriceLabel)
+        
+        infoView.snp.makeConstraints{
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(100)
+            
+        }
+        hospNameTitle.snp.makeConstraints{
+            $0.top.leading.equalTo(infoView).offset(18)
+        }
+        
+        hospPriceTitle.snp.makeConstraints{
+            $0.leading.equalTo(infoView).offset(18)
+            $0.top.equalTo(hospNameTitle.snp.bottom).offset(10)
+        }
+        
+        hospNameLabel.snp.makeConstraints{
+            $0.top.equalTo(hospNameTitle)
+            $0.leading.equalTo(hospNameTitle.snp.trailing).offset(8)
+        }
+        
+        hospPriceLabel.snp.makeConstraints{
+            $0.top.equalTo(hospNameTitle.snp.bottom).offset(10)
+            $0.leading.equalTo(hospPriceTitle.snp.trailing).offset(8)
+        }
+        
+        
     }
 }
 
